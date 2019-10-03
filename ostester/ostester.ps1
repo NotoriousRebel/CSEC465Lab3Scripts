@@ -3,8 +3,6 @@ ForEach($line in Get-Content $args[0]){
 	$array = $array + $line
 }
 
-$count = $array.Count
-# $count
 For($i=0; $i -lt $count; $i++){
 	$output1= ping $array[$i] -n 1;
 	$output2= $output1 -match "TTL";
@@ -22,5 +20,4 @@ For($i=0; $i -lt $count; $i++){
 	}
 }
 
-
-# & 'C:\Users\Aaron Karenchak\Desktop\College\Audit\ostester.ps1'
+# .\ostester.ps1 .\iplist.txt
