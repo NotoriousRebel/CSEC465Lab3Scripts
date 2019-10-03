@@ -20,15 +20,15 @@ function IP-toINT64 () {
 function Convert-Range () {
     param ($ip)
     if( $ip.IndexOf("-") -lt 0 ){
-    if( $ip.IndexOf("/") -lt 0 ){
-        return -1
-    }
-    $copy = $ip.Split("/")
-    [int64[]]$ip = @()
-    $ip += IP-toINT64($copy[0])
-    $ip += [convert]::ToInt64(("1"*$copy[1]+"0"*(32-$copy[1])),2)
-    $ip[0] = $ip[0] -band $ip[1]
-    $ip[1] = (IP-toINT64("255.255.255.255")) -bxor $ip[1] -bor $ip[0]
+        if( $ip.IndexOf("/") -lt 0 ){
+            return -1
+        }
+        $copy = $ip.Split("/")
+        [int64[]]$ip = @()
+        $ip += IP-toINT64($copy[0])
+        $ip += [convert]::ToInt64(("1"*$copy[1]+"0"*(32-$copy[1])),2)
+        $ip[0] = $ip[0] -band $ip[1]
+        $ip[1] = (IP-toINT64("255.255.255.255")) -bxor $ip[1] -bor $ip[0]
     }
     else{
         $copy = $ip.Split("-")
