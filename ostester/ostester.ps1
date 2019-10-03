@@ -1,3 +1,9 @@
+if(!$args[0]){
+	Write-Host "ERROR: must include file with IP addresses in argument"
+	Write-Host "./ostester <iplist file>"
+	exit
+}
+
 $array =@()
 ForEach($line in Get-Content $args[0]){
 	$array = $array + $line
@@ -21,4 +27,4 @@ For($i=0; $i -lt $count; $i++){
 	}
 }
 
-# .\ostester.ps1 .\iplist.txt
+# .\ostester.ps1 iplist.txt
