@@ -4,6 +4,18 @@ if(!$args[0]){
 	exit
 }
 
+<#
+.DESCRIPTION
+Script that determines the os of IP addresses given in a text file based off their TTL
+.AUTHOR
+Aaron Karenchak
+.DATE
+10/3/2019
+.EXAMPLE
+PS C:\> .\ostester.ps1 iplist.txt
+#>
+
+
 $array =@()
 ForEach($line in Get-Content $args[0]){
 	$array = $array + $line
@@ -27,5 +39,3 @@ For($i=0; $i -lt $count; $i++){
 		Write-Host $array[$i].ToString() '= Solaris/AIX'
 	}
 }
-
-# .\ostester.ps1 iplist.txt
