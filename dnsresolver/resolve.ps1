@@ -58,14 +58,18 @@ function resolve([string]$file) {
 }
 
 if (Test-Path -Path $filename) {
-    #$hosts.GetType()
-    #$hosts
     $dct = resolve($filename)
     $keys = $dct.Keys | Sort-Object
     foreach($key in $keys){
-        Write-Host "$($key): $($dct[$key])"
+        if([string]$dct[$key] -match ' '){
+            $val = [string]$dct[$key]
+            $val = $val.Replace(" ", ", ")
+            Write-Host "$($key): $($val)"
+        }
+        else{
+            Write-Host "$($key): $([string]$dct[$key])"
+        }
     }
-    #$dct | Sort-Object
 }
 
 else {
