@@ -58,14 +58,11 @@ function resolve([string]$file) {
 }
 
 if (Test-Path -Path $filename) {
-    #$hosts.GetType()
-    #$hosts
     $dct = resolve($filename)
     $keys = $dct.Keys | Sort-Object
     foreach($key in $keys){
         Write-Host "$($key): $($dct[$key])"
     }
-    #$dct | Sort-Object
 }
 
 else {
