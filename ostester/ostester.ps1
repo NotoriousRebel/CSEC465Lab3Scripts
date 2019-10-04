@@ -7,10 +7,9 @@ if(!$args[0]){
 <#
 .DESCRIPTION
 Script that determines the os of IP addresses given in a text file based off their TTL
-.AUTHOR
-Aaron Karenchak
-.DATE
-10/3/2019
+.NOTES
+Author:		Aaron Karenchak
+Date:		10/3/2019
 .EXAMPLE
 PS C:\> .\ostester.ps1 iplist.txt
 #>
