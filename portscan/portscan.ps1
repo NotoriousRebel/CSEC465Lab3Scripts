@@ -42,9 +42,10 @@ else{
 }
 
 #connection tests
-$timeout = 100
+$timeout = 50
 foreach( $i in $ip ){
     foreach( $j in $port ){
+        #tcp
         $socket = New-Object Net.Sockets.TcpClient
         $socket.BeginConnect($i,$j,$null,$null) | Out-Null
         Start-Sleep -milli $timeout
@@ -52,6 +53,23 @@ foreach( $i in $ip ){
             $ipstring = INT64-toIP($i)
             "$ipstring`t: TCP/$j`tis open"
         }
+        $socket.Close()
+        #udp
+        $socket = New-Object Net.Sockets.UdpClient
+        $socket.client.ReceiveTimeout = $timeout
+        $a = New-Object System.Text.AsciiEncoding
+        $byte = $a.GetBytes("$(Get-Date)")
+        $socket.Connect($i,$j) #| Out-Null
+        [void]$socket.Send($byte,$byte.Length)
+        $remoteendpoint = New-Object Net.IPEndpoint([Net.IPAddress]::Any,0)
+        try{
+            $recv = $socket.Receive([ref]$remoteendpoint)
+            if( $recv ){
+                $ipstring = INT64-toIP($i)
+                "$ipstring`t: UDP/$j`tis open"
+            }
+        }
+        catch{}
         $socket.Close()
     }
 }
