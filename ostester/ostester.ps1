@@ -15,15 +15,16 @@ For($i=0; $i -lt $count; $i++){
 	$output2= $output1 -match "TTL";
 	$output3=$output2 -split 'TTL='; 
 	$TTL=$output3[1];
-	# $TTL 
-	if($TTL -eq 128){
+	
+	$TTL = [int]$TTL
+	if($TTL -ge 65 -And $TTL -le 128){
 		Write-Host $array[$i].ToString() '= Windows'
 	}
-	elseif($TTL -eq 64){
+	elseif($TTL -lt 65){
 		Write-Host $array[$i].ToString() '= Linux'
 	}
-	elseif($TTL -gt 0){
-		Write-Output 'Unknown OS'
+	elseif($TTL -gt 128){
+		Write-Host $array[$i].ToString() '= Solaris/AIX'
 	}
 }
 
