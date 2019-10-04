@@ -6,25 +6,32 @@ param (
 )
 <#
 .SYNOPSIS
-Script which can be used to find living off the land binaries and scripts on a target machine.
+Script which is used to resolve dns names for host addresses
 .DESCRIPTION
-The script searches through known locations of Living off Land Binaries and Scripts
-and identifies if they exist. In the case they do exist it will output the name of the binary or
-script, the full path, and how to use it.
-.PARAMETER Outfile
-If specified output will be put into an outfile of this name
+The script gets the contents of a file and for each hostname returns the ipv4 addresses associated with
+it after a dns A query
+.PARAMETER filename
+Required parameter that contains filename to be read 
 .NOTES
 Version:        1.0
-Author:         NotoriousRebel
-Creation Date:  6/29/19
+Author:         Matthew Brown
+Creation Date:  10/3/19
 .EXAMPLE
-PS C:\> .\Find-LOLBAS.ps1
-PS C:\> .\Find-LOLBAS.ps1 -Outfile "results.txt"
-.LINK
-https://github.com/LOLBAS-Project/LOLBAS
+PS C:\> .\resolve.ps1 -filename test_file.txt
 #>
 
 function make_query($host_name){
+     <#
+    .SYNOPSIS
+    A helper function that makes a dns A query for a given hostname
+    .DESCRIPTION
+    This function takes in a hostname and performs a dns A query and returns the ipv4 addresses
+    .PARAMETER host_name
+    hostname to perform dns query on
+    .OUTPUTS
+    returns an empty string if it errors out or the ipv4 addresses 
+    #>
+
     try{
         return (Resolve-DnsName -Name $host_name -Type "A" -erroraction 'ignore').IPAddress
     }
@@ -34,6 +41,17 @@ function make_query($host_name){
 }
 
 function resolve([string]$file) {
+    <#
+    .SYNOPSIS
+    Function that takes in a file and does a dns A query for each hostname in the file
+    .DESCRIPTION
+    This function takes in a file and foreach hostname in the file 
+    calls the make_query function and stores it in hashmap
+    .PARAMETER file
+    File to parse through
+    .OUTPUTS
+    returns a hashmap mapping hostname to ipv4 addresses resolved
+    #>
    $dct = @{ }
    $results = Get-Content $file | ForEach-Object {$dct[$_] = make_query($_)}
    return $dct
