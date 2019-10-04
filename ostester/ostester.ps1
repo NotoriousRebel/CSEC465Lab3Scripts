@@ -1,12 +1,6 @@
-if(!$args[0]){
-	Write-Host "ERROR: must include file with IP addresses in argument"
-	Write-Host "./ostester <iplist file>"
-	exit
-}
-
 <#
 .DESCRIPTION
-Script that determines the os of IP addresses given in a text file based off their TTL
+Script that determines the OS of IP addresses given in a text file based off their TTL
 .NOTES
 Author:		Aaron Karenchak
 Date:		10/3/2019
@@ -14,6 +8,12 @@ Date:		10/3/2019
 PS C:\> .\ostester.ps1 iplist.txt
 #>
 
+
+if(!$args[0]){
+	Write-Host "ERROR: must include file with IP addresses in argument"
+	Write-Host "./ostester <iplist file>"
+	exit
+}
 
 $array =@()
 ForEach($line in Get-Content $args[0]){
