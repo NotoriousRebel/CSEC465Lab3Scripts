@@ -11,7 +11,7 @@ PS C:\> .\ostester.ps1 iplist.txt
 
 if(!$args[0]){
 	Write-Host "ERROR: must include file with IP addresses in argument"
-	Write-Host "./ostester <iplist file>"
+	Write-Host ".\ostester <iplist file>"
 	exit
 }
 
