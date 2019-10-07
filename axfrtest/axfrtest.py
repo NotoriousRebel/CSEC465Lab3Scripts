@@ -50,7 +50,7 @@ def axfrtest(domain: str):
                     zone = dns.zone.from_xfr(axfr)
                     # attempt axfr record transfer
                     if zone:
-                        print(f'AXFR Transfer Allowed for {zone}')
+                        print(f'AXFR Transfer Allowed for {nameserver}')
                         print('Printing contents of record')
                         for name, node in zone.nodes.items():
                             rdatasets = node.rdatasets
