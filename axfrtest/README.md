@@ -1,13 +1,12 @@
-usage: axfrtest.py [-h] domain
+usage: axfrtest.py [-h] -d DOMAIN
 
 Test a domain for AXFR zone transfers.
 
-positional arguments:
-  domain      name of the domain to be tested
-
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  -d DOMAIN, --domain DOMAIN
+                        name of the domain to be tested
 
 requirements:
-  Python 3.7.3<=
-  dnspython
+Python >=3.7.3
+dnspython
