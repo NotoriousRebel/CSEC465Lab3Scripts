@@ -53,7 +53,7 @@ function resolve([string]$file) {
     returns a hashmap mapping hostname to ipv4 addresses resolved
     #>
    $dct = @{ }
-   $results = Get-Content $file | ForEach-Object {$dct[$_] = make_query($_)}
+   Get-Content $file | ForEach-Object {$dct[$_] = make_query($_)}
    return $dct
 }
 
